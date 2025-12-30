@@ -1,13 +1,14 @@
 import express from "express";
 import { authRouter } from "./routes/authRoute.js";
 import { connectDB } from "./config/db.js";
-
+import { mentalHealthRouter } from "./routes/mentahealthRoute.js";
+import cors from "cors";
 const app = express();
 const port = 4000;
 
 app.use(express.json());
 
-
+app.use(cors());
 connectDB();
 
 app.get("/health", (req, res) => {
@@ -16,6 +17,7 @@ app.get("/health", (req, res) => {
   });
 });
 app.use("/api",authRouter);
+app.use("/api",mentalHealthRouter);
 
 app.listen(port, () => {
   console.log("server is running on port ", port);

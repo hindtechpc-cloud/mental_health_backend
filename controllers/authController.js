@@ -2,6 +2,7 @@ import { validationResult } from "express-validator";
 import { User } from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+
 export const register = async (req, res) => {
   const result = validationResult(req);
   if (!result.isEmpty()) {
@@ -113,4 +114,5 @@ export const login = async (req, res) => {
     });
   }
 };
+
 
