@@ -12,6 +12,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "please eneter your pssword"],
     },
+    pic: {
+      type: String,
+    },
   },
   {
     timestamps: true,

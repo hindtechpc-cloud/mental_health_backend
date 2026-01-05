@@ -1,14 +1,22 @@
 import express from "express";
-import { login, register } from "../controllers/authController.js";
-import { loginValidations, registerValidations } from "../middlewares/validations/authValidation.js";
+import {
+  login,
+  register,
+  updateProfile,
+} from "../controllers/authController.js";
+import {
+  loginValidations,
+  registerValidations,
+} from "../middlewares/validations/authValidation.js";
 import { protect } from "../middlewares/authMiddleware.js";
 import { User } from "../models/User.js";
+import upload from "../middlewares/upload.js";
 
 const router = express.Router();
 
 router.post("/register", registerValidations, register);
 router.post("/login", loginValidations, login);
-
+router.put("/update-profile", protect, upload("pic"), updateProfile);
 router.post("/check", protect, async (req, res) => {
   try {
     const user = await User.findById(req.decoded).select("-password");
@@ -27,6 +35,5 @@ router.post("/check", protect, async (req, res) => {
     });
   }
 });
-
 
 export const authRouter = router;
